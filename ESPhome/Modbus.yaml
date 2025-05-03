@@ -64,6 +64,7 @@ sensor:
 
   - platform: modbus_controller
     name: "PV1 Power"
+    id: pv1_power
     address: 0x0003
     register_type: holding
     value_type: U_WORD
@@ -90,6 +91,7 @@ sensor:
 
   - platform: modbus_controller
     name: "PV2 Power"
+    id: pv2_power
     address: 0x0006
     register_type: holding
     value_type: U_WORD
@@ -116,6 +118,7 @@ sensor:
 
   - platform: modbus_controller
     name: "PV3 Power"
+    id: pv3_power
     address: 0x0009
     register_type: holding
     value_type: U_WORD
@@ -142,18 +145,35 @@ sensor:
 
   - platform: modbus_controller
     name: "PV4 Power"
+    id: pv4_power
     address: 0x000C
     register_type: holding
     value_type: U_WORD
     unit_of_measurement: "W"
 
+  - platform: template
+    name: "PV Gesamtleistung"
+    id: pv_total_power
+    lambda: |-
+      return 
+        id(pv1_power).state + 
+        id(pv2_power).state + 
+        id(pv3_power).state + 
+        id(pv4_power).state;
+    unit_of_measurement: "W"
+    update_interval: 1s  # Optional: Update-Intervall anpassen
+
   # Grid & Battery
   - platform: modbus_controller
     name: "Grid Power"
+    id: grid_power  
     address: 0x000D
     register_type: holding
-    value_type: U_WORD
+    value_type: U_WORD 
     unit_of_measurement: "W"
+    device_class: power  
+    state_class: measurement 
+
 
   - platform: modbus_controller
     name: "Battery Voltage"
