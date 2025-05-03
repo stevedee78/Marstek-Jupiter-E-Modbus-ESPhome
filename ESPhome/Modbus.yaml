@@ -1,0 +1,317 @@
+esphome:
+  name: marstek-modbus
+  friendly_name: Marstek_ModBus
+
+esp8266:
+  board: d1_mini
+  restore_from_flash: false
+
+logger:
+
+api:
+  encryption:
+    key: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+ota:
+  - platform: esphome
+    password: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: "Marstek-Modbus Fallback Hotspot"
+    password: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+captive_portal:
+
+uart:
+  rx_pin: GPIO5
+  tx_pin: GPIO2
+  baud_rate: 115200
+  stop_bits: 1
+
+modbus:
+  id: modbus1
+  flow_control_pin: GPIO4
+
+modbus_controller:
+  - id: marstek
+    address: 1
+    modbus_id: modbus1
+    setup_priority: -10
+    update_interval: 15s 
+
+sensor:
+  # PV1
+  - platform: modbus_controller
+    name: "PV1 Voltage"
+    address: 0x0001
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    accuracy_decimals: 1
+    filters: [multiply: 0.1]
+
+  - platform: modbus_controller
+    name: "PV1 Current"
+    address: 0x0002
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "A"
+    accuracy_decimals: 1
+    filters: [multiply: 0.1]
+
+  - platform: modbus_controller
+    name: "PV1 Power"
+    address: 0x0003
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "W"
+
+  # PV2
+  - platform: modbus_controller
+    name: "PV2 Voltage"
+    address: 0x0004
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    accuracy_decimals: 1
+    filters: [multiply: 0.1]
+
+  - platform: modbus_controller
+    name: "PV2 Current"
+    address: 0x0005
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "A"
+    accuracy_decimals: 1
+    filters: [multiply: 0.1]
+
+  - platform: modbus_controller
+    name: "PV2 Power"
+    address: 0x0006
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "W"
+
+  # PV3
+  - platform: modbus_controller
+    name: "PV3 Voltage"
+    address: 0x0007
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    accuracy_decimals: 1
+    filters: [multiply: 0.1]
+
+  - platform: modbus_controller
+    name: "PV3 Current"
+    address: 0x0008
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "A"
+    accuracy_decimals: 1
+    filters: [multiply: 0.1]
+
+  - platform: modbus_controller
+    name: "PV3 Power"
+    address: 0x0009
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "W"
+
+  # PV4
+  - platform: modbus_controller
+    name: "PV4 Voltage"
+    address: 0x000A
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    accuracy_decimals: 1
+    filters: [multiply: 0.1]
+
+  - platform: modbus_controller
+    name: "PV4 Current"
+    address: 0x000B
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "A"
+    accuracy_decimals: 1
+    filters: [multiply: 0.1]
+
+  - platform: modbus_controller
+    name: "PV4 Power"
+    address: 0x000C
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "W"
+
+  # Grid & Battery
+  - platform: modbus_controller
+    name: "Grid Power"
+    address: 0x000D
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "W"
+
+  - platform: modbus_controller
+    name: "Battery Voltage"
+    address: 0x000F
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    accuracy_decimals: 1
+    filters: [multiply: 0.1]
+
+  - platform: modbus_controller
+    name: "Battery SOC"
+    address: 0x0010
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "%"
+
+  # Energy counters
+  - platform: modbus_controller
+    name: "Daily Generation"
+    address: 0x0013
+    register_type: holding
+    value_type: U_DWORD
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 2
+    filters: [multiply: 0.01]
+
+  - platform: modbus_controller
+    name: "Monthly Generation"
+    address: 0x0015
+    register_type: holding
+    value_type: U_DWORD
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 2
+    filters: [multiply: 0.01]
+
+  - platform: modbus_controller
+    name: "Daily Grid Feed"
+    address: 0x0017
+    register_type: holding
+    value_type: U_DWORD
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 2
+    filters: [multiply: 0.01]
+
+  - platform: modbus_controller
+    name: "Monthly Grid Feed"
+    address: 0x0019
+    register_type: holding
+    value_type: U_DWORD
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 2
+    filters: [multiply: 0.01]
+
+  # System Info
+  - platform: modbus_controller
+    name: "Device ID"
+    address: 0x001B
+    register_type: holding
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    name: "EMS Version"
+    address: 0x001C
+    register_type: holding
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    name: "INV Version"
+    address: 0x001D
+    register_type: holding
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    name: "MPPT Version"
+    address: 0x001E
+    register_type: holding
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    name: "BMS Version"
+    address: 0x001F
+    register_type: holding
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    name: "Screen Version"
+    address: 0x0022
+    register_type: holding
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    name: "Device Type"
+    address: 0x0025
+    register_type: holding
+    value_type: U_WORD
+
+  # Status registers
+  - platform: modbus_controller
+    name: "PV1 Status"
+    address: 0x1004
+    register_type: holding
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    name: "PV2 Status"
+    address: 0x1005
+    register_type: holding
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    name: "PV3 Status"
+    address: 0x1006
+    register_type: holding
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    name: "PV4 Status"
+    address: 0x1007
+    register_type: holding
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    name: "INV Status"
+    address: 0x1008
+    register_type: holding
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    name: "Charge Discharge Marker"
+    address: 0x1009
+    register_type: holding
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    name: "Allow Discharge Power"
+    address: 0x100A
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "W"
+
+  - platform: modbus_controller
+    id: ems_mode_raw
+    name: "EMS Mode Raw"
+    address: 0x100A          
+    register_type: holding
+    value_type: U_WORD
+    internal: true
+
+  - platform: modbus_controller
+    id: charge_status_raw
+    name: "Charge Status Raw"
+    address: 0x1009          
+    register_type: holding
+    value_type: U_WORD
+    internal: true
+
+interval:
+  - interval: 60s
+    then:
+      - component.update: marstek
