@@ -13,6 +13,7 @@ Softwarevoraussetzung (bei mir):
 3. und meine YAML, die ihr anpassen müsst.
 
 Pinbelegung Modbus-Stecker:
+
 PIN 1 - A  
 PIN 2 - B  
 PIN 3 - n.c.  
