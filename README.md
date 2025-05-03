@@ -22,6 +22,8 @@ Im Gegensatz zu dem Venus Akku ist am Jupiter-E eine 4-pol Buchse statt 5 pol ve
 
 Stehe noch am Anfang mit dem Projekt. Wer also noch Infos oder Ideen hat gerne her damit.
 
+aktuelle Quelle für diese informationen ist die Facebook Gruppe Marstek Jupiter-C/E und Venus- C/E Speicher-Erfahrungen
+
 ![image](https://github.com/user-attachments/assets/8a494c90-b655-4865-aa6c-1c927f2e4652)
 
 ![image](https://github.com/user-attachments/assets/67881fd8-d277-4728-9f3f-f360f2400a92)
