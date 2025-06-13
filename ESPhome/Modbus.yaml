@@ -40,7 +40,7 @@ modbus_controller:
     address: 1
     modbus_id: modbus1
     setup_priority: -10
-    update_interval: 15s 
+    update_interval: 15s
 
 sensor:
   # PV1
@@ -69,6 +69,8 @@ sensor:
     register_type: holding
     value_type: U_WORD
     unit_of_measurement: "W"
+    device_class: power
+    state_class: measurement
 
   # PV2
   - platform: modbus_controller
@@ -96,6 +98,8 @@ sensor:
     register_type: holding
     value_type: U_WORD
     unit_of_measurement: "W"
+    device_class: power
+    state_class: measurement
 
   # PV3
   - platform: modbus_controller
@@ -123,6 +127,8 @@ sensor:
     register_type: holding
     value_type: U_WORD
     unit_of_measurement: "W"
+    device_class: power
+    state_class: measurement
 
   # PV4
   - platform: modbus_controller
@@ -150,29 +156,34 @@ sensor:
     register_type: holding
     value_type: U_WORD
     unit_of_measurement: "W"
+    device_class: power
+    state_class: measurement
 
-  - platform: template
+  - platform: combination
     name: "PV Gesamtleistung"
     id: pv_total_power
-    lambda: |-
-      return 
-        id(pv1_power).state + 
-        id(pv2_power).state + 
-        id(pv3_power).state + 
-        id(pv4_power).state;
+    type: sum
+    sources:
+      - source: pv1_power
+      - source: pv2_power
+      - source: pv3_power
+      - source: pv4_power
     unit_of_measurement: "W"
-    update_interval: 1s  # Optional: Update-Intervall anpassen
+    device_class: power
+    state_class: measurement
 
   # Grid & Battery
   - platform: modbus_controller
     name: "Grid Power"
-    id: grid_power  
+    id: grid_power
     address: 0x000D
     register_type: holding
-    value_type: U_WORD 
+    value_type: U_WORD
     unit_of_measurement: "W"
-    device_class: power  
-    state_class: measurement 
+    device_class: power
+    state_class: measurement
+    device_class: power
+    state_class: measurement
 
 
   - platform: modbus_controller
@@ -190,6 +201,8 @@ sensor:
     register_type: holding
     value_type: U_WORD
     unit_of_measurement: "%"
+    device_class: battery
+    state_class: measurement
 
   # Energy counters
   - platform: modbus_controller
@@ -200,6 +213,8 @@ sensor:
     unit_of_measurement: "kWh"
     accuracy_decimals: 2
     filters: [multiply: 0.01]
+    device_class: energy
+    state_class: measurement
 
   - platform: modbus_controller
     name: "Monthly Generation"
@@ -209,6 +224,8 @@ sensor:
     unit_of_measurement: "kWh"
     accuracy_decimals: 2
     filters: [multiply: 0.01]
+    device_class: energy
+    state_class: measurement
 
   - platform: modbus_controller
     name: "Daily Grid Feed"
@@ -218,6 +235,8 @@ sensor:
     unit_of_measurement: "kWh"
     accuracy_decimals: 2
     filters: [multiply: 0.01]
+    device_class: energy
+    state_class: measurement
 
   - platform: modbus_controller
     name: "Monthly Grid Feed"
@@ -227,6 +246,8 @@ sensor:
     unit_of_measurement: "kWh"
     accuracy_decimals: 2
     filters: [multiply: 0.01]
+    device_class: energy
+    state_class: measurement
 
   # System Info
   - platform: modbus_controller
@@ -314,11 +335,13 @@ sensor:
     register_type: holding
     value_type: U_WORD
     unit_of_measurement: "W"
+    device_class: power
+    state_class: measurement
 
   - platform: modbus_controller
     id: ems_mode_raw
     name: "EMS Mode Raw"
-    address: 0x100A          
+    address: 0x100A
     register_type: holding
     value_type: U_WORD
     internal: true
@@ -326,7 +349,7 @@ sensor:
   - platform: modbus_controller
     id: charge_status_raw
     name: "Charge Status Raw"
-    address: 0x1009          
+    address: 0x1009
     register_type: holding
     value_type: U_WORD
     internal: true
