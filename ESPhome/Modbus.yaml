@@ -182,8 +182,6 @@ sensor:
     unit_of_measurement: "W"
     device_class: power
     state_class: measurement
-    device_class: power
-    state_class: measurement
 
 
   - platform: modbus_controller
