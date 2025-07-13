@@ -19,7 +19,7 @@ PIN 2 - B
 PIN 3 - n.c.  
 PIN 4 - n.c.
 
-Im Gegensatz zu dem Venus-Akku ist am Jupiter-E eine 4-polige Buchse statt einer 5-poligen verbaut.
+Im Gegensatz zu dem Venus-Akku ist am Jupiter-E eine 4-polige Buchse statt einer 5-poligen verbaut.Bei mir könnt eine 3D Druck Variante für 10€ erwerben.
 
 Ich stehe noch am Anfang mit dem Projekt. Wer also noch Infos oder Ideen hat, gerne her damit.
 
